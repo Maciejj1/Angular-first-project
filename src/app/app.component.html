@@ -21,19 +21,23 @@
       class="col s8"
       type="text"
       placeholder="Dodaj zadanie i datę wykonania"
-    />
-    <input class="col s2 disabled" type="date" />
-    <button class="btn-floating">+</button>
+      #nameInput
+    /><!--    //KeyUp- Pobieranie danych z pola tekstowego-->
+
+    <input class="col s2 disabled" type="date" #dateInput />
+    <button class="btn-floating"  (click)="createTask(nameInput.value , dateInput.value) ; nameInput.value= '';dateInput.value=''" >+</button>
+    <button id="propertyEventBtn">Kliknij</button>
   </div>
 
   <ul class="collection">
-    <li class="collection-item row">
-      <span class="col s10">1 Siłownia - 11.07 czwartek</span>
+    <li class="collection-item row" *ngFor="let task of tasks; let i= index"><!--      //NgFor- pobieranie danych ze zmiennych tasks i dodanie indexu-->
+      <span class="col s10">{{i + 1}}{{task.name}}-{{task.deadline | date: 'd.MM.EEEE':'pl'}}</span><!--      //NgFor- wywołanie danych ze zmiennej tasks i indexu-->
+
       <div class="col s2 right-align">
         <button class="btn-floating btn-small red">
           <i class="material-icons">remove</i>
         </button>
-        <button class="btn-floating btn-small green ml-5">
+        <button class="btn-floating btn-small green ml-5" >
           <i class="material-icons">check</i>
         </button>
       </div>
@@ -54,15 +58,14 @@
 <!--    {{item.key}} : {{item.value}}&lt;!&ndash;  //KeyValuePipe- do wyświetlania obiektów np.Z bazy danych&ndash;&gt;-->
 <!--  </div>-->
 <!--<p>Wyświetla pierwszy i trzeci index z listy: {{words | slice : 1:3}}</p>&lt;!&ndash;  //SlicePipe - służy do operacji na listach i stringach taki jak wyżej&ndash;&gt;-->
-
-
-
 <!--  <p>{{'06-15.1410' | date: 'fullDate':'':'pl'}}</p>&lt;!&ndash;  //DatePipe - ustawienie daty tak aby wyświetlała się zapisem polskim&ndash;&gt;-->
 <!--  <p>{{'06-15.1410' | date: 'fullDate':'':'bn'}}</p>&lt;!&ndash;  //DatePipe - ustawienie daty tak aby wyświetlała się zapisem bengalskim&ndash;&gt;-->
 
   <h1>Dzisiaj brak zadań :-)</h1>
 
-  <button class="btn red">Wyczyść</button>
+  <button class="btn red" (click)="clearTasks()">Wyczyść</button> <!--  //BindowanieButton- Nadanie funkcji click która czyści nam tablice dla przycisku-->
+<!--  <button class="btn red" (click)="tasks = []">Wyczyść</button> // METODA 2 : BindowanieButton- Nadanie funkcji click która czyści nam tablice dla przycisku&ndash;&gt;-->
+
 
   <footer class="page-footer mt-5">
     <div class="footer-copyright">
